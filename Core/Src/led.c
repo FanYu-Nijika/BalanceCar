@@ -7,5 +7,16 @@
 #include "led.h"
 
 void led_on(void){
-    
+    HAL_GPIO_WritePin(L_GPIO_Port, L_Pin, GPIO_PIN_RESET)
+}
+void led_off(void){
+    HAL_GPIO_WritePin(L_GPIO_Port, L_Pin, GPIO_PIN_SET)
+}
+void led_turn(void){
+    if (HAL_GPIO_ReadPin(L_GPIO_Port, L_Pin) == GPIO_PIN_SET){
+        led_on();
+    }
+    else {
+        led_off();
+    }
 }
