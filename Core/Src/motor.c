@@ -7,7 +7,7 @@
 #include "pwm.h"
 #include "motor.h"
 
-void motor_setPWM(uint8_t motor, uint16_t pwm){
+void motor_setPWM(uint8_t motor, int16_t pwm){
     if (motor == 1){
         if (pwm >= 0){
             HAL_GPIO_WritePin(AIN1_GPIO_Port, AIN1_Pin, GPIO_PIN_SET);

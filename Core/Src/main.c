@@ -24,7 +24,15 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "blueserial.h"
+#include "encoder.h"
+#include "iic.h"
+#include "key.h"
+#include "led.h"
+#include "motor.h"
+#include "mpu6050.h"
+#include "OLED.h"
+#include "pwm.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -76,7 +84,11 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  encoder_init();
+  HAL_TIM_Base_Start_IT(&htim1); 
+  HAL_TIM_Base_Start_IT(&htim2); 
+  HAL_TIM_Base_Start_IT(&htim3); 
+  HAL_TIM_Base_Start_IT(&htim4); 
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -149,6 +161,19 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+    if (htim->Instance == TIM1) 
+    {
+        // -------------------------
+        // 这里写你的平衡车核心控制逻辑：
+        // 1. 读取 MPU6050 角度与角速度
+        // 2. 读取 编码器 计数值
+        // 3. PID 串级运算 (直立环 + 速度环 + 转向环)
+        // 4. 将计算结果赋给 motor_setPWM() 控制电机
+        // -------------------------
+    }
+}
 
 /* USER CODE END 4 */
 
